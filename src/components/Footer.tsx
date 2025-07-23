@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getDate } from "date-fns";
-import { Github, Twitter, Linkedin, Mail, Code, Heart } from "lucide-react";
+import { Github, Mail, Heart, Cloud } from "lucide-react";
 
 export const Footer = () => {
   const year = new Date().getFullYear();
@@ -12,7 +12,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-primary rounded-2xl flex items-center justify-center">
-                <Code className="w-6 h-6 text-primary-foreground" />
+                <Cloud className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
                 <h3 className="text-xl font-bold">infros</h3>
