@@ -195,7 +195,7 @@ jobs:
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
             <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">
-              <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
+              <img src="./git.png" alt="GitHub Actions" className="w-full h-full object-contain" />
             </div>
             GitHub Actions CI/CD Generator
           </DialogTitle>

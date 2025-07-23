@@ -59,7 +59,7 @@ export const Dashboard = () => {
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setTerraformOpen(true)}>
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src="./terraform.jpg" alt="Terraform" className="w-full h-full rounded object-contain" />
+                <img src="./terraform.png" alt="Terraform" className="w-full h-full rounded object-contain" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Terraform Script</h3>
               <p className="text-muted-foreground mb-6">
@@ -74,7 +74,7 @@ export const Dashboard = () => {
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setAnsibleOpen(true)}>
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src={ansibleLogoDark} alt="Ansible" className="w-full h-full object-contain" />
+                <img src="./ansible.png" alt="Ansible" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Ansible Playbook</h3>
               <p className="text-muted-foreground mb-6">
@@ -89,7 +89,7 @@ export const Dashboard = () => {
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setCicdOpen(true)}>
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
+                <img src="./git.png" alt="GitHub Actions" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-2xl font-bold mb-4">CI/CD YAML</h3>
               <p className="text-muted-foreground mb-6">

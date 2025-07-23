@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { getDate } from "date-fns";
 import { Github, Twitter, Linkedin, Mail, Code, Heart } from "lucide-react";
 
 export const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-background/80 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 py-16">
@@ -24,11 +26,6 @@ export const Footer = () => {
 
           {/* Tools */}
           <div className="space-y-4">
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Terraform Generator</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Ansible Playbooks</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Docker Compose</a></li>
-            </ul>
           </div>
 
           <div className="space-y-4">
@@ -39,11 +36,12 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold">Connect</h4>
             <div className="flex gap-3">
-              <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
+              <Button 
+                variant="glass" 
+                size="icon" 
+                className="hover:scale-105 transition-transform"
+                onClick={() => window.open("https://github.com/azi74", "_blank")}>
                 <Github className="w-5 h-5" />
-              </Button>
-              <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
-                <Linkedin className="w-5 h-5" />
               </Button>
               <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
                 <Mail className="w-5 h-5" />
@@ -57,7 +55,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Made with</span>
             <Heart className="w-4 h-4 text-red-500" />
@@ -65,7 +63,7 @@ export const Footer = () => {
           </div>
           
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <span>© 2025 infros</span>
+            <span>© {year} infros</span>
           </div>
         </div>
       </div>
