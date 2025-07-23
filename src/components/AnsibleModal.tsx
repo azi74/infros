@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CodePreview } from "./CodePreview";
 import { Server, Download, Copy, Package, Users, Play } from "lucide-react";
+import ansibleLogo from "@/assets/ansible-logo.png";
 
 interface AnsibleModalProps {
   open: boolean;
@@ -121,8 +122,8 @@ ${config.users.map(user => `      - ${user}`).join('\n')}
       <DialogContent className="glass-modal max-w-6xl h-[90vh] overflow-hidden">
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
-            <div className="w-10 h-10 bg-gradient-ansible rounded-xl flex items-center justify-center">
-              <Server className="w-6 h-6 text-foreground" />
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-2">
+              <img src={ansibleLogo} alt="Ansible" className="w-full h-full object-contain" />
             </div>
             Ansible Playbook Generator
           </DialogTitle>
