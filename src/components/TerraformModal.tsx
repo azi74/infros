@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CodePreview } from "./CodePreview";
 import { Cloud, Download, Copy } from "lucide-react";
-import terraformLogo from "@/assets/terraform-logo.png";
+import terraformLogoDark from "@/assets/terraform-logo-dark.png";
 
 interface TerraformModalProps {
   open: boolean;
@@ -78,8 +78,8 @@ output "instance_ip" {
       <DialogContent className="glass-modal max-w-6xl h-[90vh] overflow-hidden">
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-2">
-              <img src={terraformLogo} alt="Terraform" className="w-full h-full object-contain" />
+            <div className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center p-2">
+              <img src={terraformLogoDark} alt="Terraform" className="w-full h-full object-contain" />
             </div>
             Terraform Infrastructure Generator
           </DialogTitle>

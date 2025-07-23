@@ -2,39 +2,44 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TerraformModal } from "./TerraformModal";
 import { AnsibleModal } from "./AnsibleModal";
+import { CICDModal } from "./CICDModal";
 import { Footer } from "./Footer";
-import { Code, Server, Cloud, Settings, Download, Github } from "lucide-react";
-import terraformLogo from "@/assets/terraform-logo.png";
-import ansibleLogo from "@/assets/ansible-logo.png";
+import { Code, Server, Cloud, Settings, Download, Github, GitBranch } from "lucide-react";
+import terraformLogoDark from "@/assets/terraform-logo-dark.png";
+import ansibleLogoDark from "@/assets/ansible-logo-dark.png";
+import githubActionsLogo from "@/assets/github-actions-logo.png";
 
 export const Dashboard = () => {
   const [terraformOpen, setTerraformOpen] = useState(false);
   const [ansibleOpen, setAnsibleOpen] = useState(false);
+  const [cicdOpen, setCicdOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Floating Header */}
-      <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
-        <div className="glass-modal px-8 py-4 rounded-3xl border border-glass-border/50 backdrop-blur-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-primary rounded-2xl flex items-center justify-center animate-float">
-                <Cloud className="w-6 h-6 text-primary-foreground" />
+      {/* Full Width Floating Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 animate-fade-in">
+        <div className="mx-6 mt-6">
+          <div className="glass-modal px-8 py-4 rounded-3xl border border-glass-border/50 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-primary rounded-2xl flex items-center justify-center animate-float">
+                  <Cloud className="w-6 h-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-foreground">InfraGenie</h1>
+                  <p className="text-sm text-muted-foreground">DevOps Assistant</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">InfraGenie</h1>
-                <p className="text-sm text-muted-foreground">DevOps Assistant</p>
-              </div>
+              
+              <nav className="flex items-center gap-3">
+                <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
+                  <Github className="w-5 h-5" />
+                </Button>
+                <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
+                  <Settings className="w-5 h-5" />
+                </Button>
+              </nav>
             </div>
-            
-            <nav className="flex items-center gap-3">
-              <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
-                <Github className="w-5 h-5" />
-              </Button>
-              <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
-                <Settings className="w-5 h-5" />
-              </Button>
-            </nav>
           </div>
         </div>
       </header>
@@ -58,12 +63,12 @@ export const Dashboard = () => {
           </p>
 
           {/* Action Cards */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Terraform Card */}
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setTerraformOpen(true)}>
-              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src={terraformLogo} alt="Terraform" className="w-full h-full object-contain" />
+              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
+                <img src={terraformLogoDark} alt="Terraform" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Terraform Generator</h3>
               <p className="text-muted-foreground mb-6">
@@ -77,8 +82,8 @@ export const Dashboard = () => {
             {/* Ansible Card */}
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setAnsibleOpen(true)}>
-              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src={ansibleLogo} alt="Ansible" className="w-full h-full object-contain" />
+              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
+                <img src={ansibleLogoDark} alt="Ansible" className="w-full h-full object-contain" />
               </div>
               <h3 className="text-2xl font-bold mb-4">Ansible Generator</h3>
               <p className="text-muted-foreground mb-6">
@@ -86,6 +91,21 @@ export const Dashboard = () => {
               </p>
               <Button variant="ansible" size="lg" className="w-full">
                 Configure Servers
+              </Button>
+            </div>
+
+            {/* CI/CD Card */}
+            <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
+                 onClick={() => setCicdOpen(true)}>
+              <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
+                <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">CI/CD Generator</h3>
+              <p className="text-muted-foreground mb-6">
+                Create GitHub Actions workflows for automated testing, building, and deployment.
+              </p>
+              <Button variant="hero" size="lg" className="w-full">
+                Setup CI/CD
               </Button>
             </div>
           </div>
@@ -96,12 +116,13 @@ export const Dashboard = () => {
       <section className="px-6 py-20 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
-          <div className="grid md:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-5 gap-6">
             {[
               { icon: Code, title: "Visual Forms", desc: "No scripting needed" },
               { icon: Download, title: "Export Ready", desc: "Production configs" },
               { icon: Github, title: "Git Integration", desc: "Push to repos" },
-              { icon: Settings, title: "Live Preview", desc: "Real-time syntax" }
+              { icon: Settings, title: "Live Preview", desc: "Real-time syntax" },
+              { icon: GitBranch, title: "CI/CD Ready", desc: "Automated pipelines" }
             ].map((feature, i) => (
               <div key={i} className="glass p-6 rounded-2xl text-center">
                 <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
@@ -119,6 +140,7 @@ export const Dashboard = () => {
       {/* Modals */}
       <TerraformModal open={terraformOpen} onOpenChange={setTerraformOpen} />
       <AnsibleModal open={ansibleOpen} onOpenChange={setAnsibleOpen} />
+      <CICDModal open={cicdOpen} onOpenChange={setCicdOpen} />
     </div>
   );
 };
