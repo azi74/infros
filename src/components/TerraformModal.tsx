@@ -75,8 +75,8 @@ output "instance_ip" {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass-modal max-w-6xl h-[90vh] overflow-hidden">
-        <DialogHeader className="pb-6">
+      <DialogContent className="glass-modal max-w-6xl overflow-hidden">
+        <DialogHeader className="pb-1">
           <DialogTitle className="flex items-center gap-3 text-2xl">
             <div className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center p-2">
               <img src={terraformLogoDark} alt="Terraform" className="w-full h-full object-contain" />
@@ -210,9 +210,9 @@ output "instance_ip" {
             </Tabs>
 
             <div className="flex gap-3 pt-6 border-t border-border">
-              <Button variant="terraform" onClick={handleDownload} className="flex-1">
+              <Button variant="terraform" onClick={handleDownload} className="bg-[#7B42BC] text-white hover:bg-purple-950 hover:text-white flex-1">
                 <Download className="w-4 h-4 mr-2" />
-                Download .tf
+                Download
               </Button>
               <Button variant="outline" onClick={handleCopy}>
                 <Copy className="w-4 h-4 mr-2" />

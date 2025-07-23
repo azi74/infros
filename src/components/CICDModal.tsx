@@ -191,7 +191,7 @@ jobs:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass-modal max-w-6xl h-[90vh] overflow-hidden">
+      <DialogContent className="glass-modal max-w-6xl overflow-hidden">
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
             <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">

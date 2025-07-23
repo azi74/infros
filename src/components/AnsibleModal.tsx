@@ -119,7 +119,7 @@ ${config.users.map(user => `      - ${user}`).join('\n')}
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass-modal max-w-6xl h-[90vh] overflow-hidden">
+      <DialogContent className="glass-modal max-w-6xl overflow-hidden">
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
             <div className="w-10 h-10 bg-muted rounded-xl flex items-center justify-center p-2">
@@ -257,7 +257,7 @@ ${config.users.map(user => `      - ${user}`).join('\n')}
             </Tabs>
 
             <div className="flex gap-3 pt-6 border-t border-border">
-              <Button variant="ansible" onClick={handleDownload} className="flex-1">
+              <Button variant="ansible" onClick={handleDownload} className="hover:bg-red-900 flex-1">
                 <Download className="w-4 h-4 mr-2" />
                 Download .yml
               </Button>

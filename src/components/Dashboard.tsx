@@ -26,19 +26,10 @@ export const Dashboard = () => {
                   <Cloud className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-foreground">InfraGenie</h1>
+                  <h1 className="text-xl font-bold text-foreground">infros</h1>
                   <p className="text-sm text-muted-foreground">DevOps Assistant</p>
                 </div>
               </div>
-              
-              <nav className="flex items-center gap-3">
-                <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
-                  <Github className="w-5 h-5" />
-                </Button>
-                <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
-                  <Settings className="w-5 h-5" />
-                </Button>
-              </nav>
             </div>
           </div>
         </div>
@@ -68,13 +59,13 @@ export const Dashboard = () => {
             <div className="glass-modal p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setTerraformOpen(true)}>
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
-                <img src={terraformLogoDark} alt="Terraform" className="w-full h-full object-contain" />
+                <img src="./terraform.jpg" alt="Terraform" className="w-full h-full rounded object-contain" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Terraform Generator</h3>
+              <h3 className="text-2xl font-bold mb-4">Terraform Script</h3>
               <p className="text-muted-foreground mb-6">
                 Visual form builder for cloud infrastructure. Generate EC2, VPC, S3, and more with live preview.
               </p>
-              <Button variant="terraform" size="lg" className="w-full">
+              <Button variant="terraform" size="lg" className="bg-[#7B42BC] hover:bg-white hover:text-purple-600 hover:border-purple-600 text-white w-full">
                 Create Infrastructure
               </Button>
             </div>
@@ -85,11 +76,11 @@ export const Dashboard = () => {
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
                 <img src={ansibleLogoDark} alt="Ansible" className="w-full h-full object-contain" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Ansible Generator</h3>
+              <h3 className="text-2xl font-bold mb-4">Ansible Playbook</h3>
               <p className="text-muted-foreground mb-6">
                 Configure servers with playbooks. Manage packages, services, users, and deployments.
               </p>
-              <Button variant="ansible" size="lg" className="w-full">
+              <Button variant="ansible" size="lg" className="bg-red-700 hover:bg-white hover:text-red-600 hover:border-red-600 w-full">
                 Configure Servers
               </Button>
             </div>
@@ -100,11 +91,11 @@ export const Dashboard = () => {
               <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center mb-6 mx-auto p-3">
                 <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">CI/CD Generator</h3>
+              <h3 className="text-2xl font-bold mb-4">CI/CD YAML</h3>
               <p className="text-muted-foreground mb-6">
                 Create GitHub Actions workflows for automated testing, building, and deployment.
               </p>
-              <Button variant="hero" size="lg" className="w-full">
+              <Button variant="hero" size="lg" className="hover:bg-white hover:text-cyan-600 hover:border-cyan-600 w-full">
                 Setup CI/CD
               </Button>
             </div>
@@ -113,7 +104,7 @@ export const Dashboard = () => {
       </section>
 
       {/* Features Section */}
-      <section className="px-6 py-20 border-t border-border">
+      <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto">
           <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
           <div className="grid md:grid-cols-5 gap-6">
