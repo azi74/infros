@@ -19,7 +19,7 @@ export const Dashboard = () => {
       {/* Full Width Floating Header */}
       <header className="fixed top-0 left-0 right-0 z-50 animate-fade-in">
         <div className="mx-6 mt-6">
-          <div className="glass-modal px-8 py-4 rounded-3xl border border-glass-border/50 backdrop-blur-md">
+          <div className="glass-modal px-8 py-4 rounded-3xl border-blue-400/50 backdrop-blur-md">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-gradient-primary rounded-2xl flex items-center justify-center animate-float">
@@ -65,7 +65,7 @@ export const Dashboard = () => {
               <p className="text-muted-foreground mb-6">
                 Visual form builder for cloud infrastructure. Generate EC2, VPC, S3, and more with live preview.
               </p>
-              <Button variant="terraform" size="lg" className="bg-[#7B42BC] hover:bg-white hover:text-purple-600 hover:border-purple-600 text-white w-full">
+              <Button variant="terraform" size="lg" className="bg-[#7B42BC] hover:bg-purple-900 hover:text-white hover:border-purple-600 text-white w-full">
                 Create Infrastructure
               </Button>
             </div>
@@ -80,7 +80,7 @@ export const Dashboard = () => {
               <p className="text-muted-foreground mb-6">
                 Configure servers with playbooks. Manage packages, services, users, and deployments.
               </p>
-              <Button variant="ansible" size="lg" className="bg-red-700 hover:bg-white hover:text-red-600 hover:border-red-600 w-full">
+              <Button variant="ansible" size="lg" className="bg-red-700 hover:bg-red-900 hover:text-white hover:border-red-600 w-full">
                 Configure Servers
               </Button>
             </div>
@@ -95,7 +95,7 @@ export const Dashboard = () => {
               <p className="text-muted-foreground mb-6">
                 Create GitHub Actions workflows for automated testing, building, and deployment.
               </p>
-              <Button variant="hero" size="lg" className="hover:bg-white hover:text-cyan-600 hover:border-cyan-600 w-full">
+              <Button variant="hero" size="lg" className="hover:bg-cyan-900 hover:text-white hover:border-cyan-600 w-full">
                 Setup CI/CD
               </Button>
             </div>
