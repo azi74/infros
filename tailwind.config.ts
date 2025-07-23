@@ -61,6 +61,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// DevOps specific semantic colors
+				terraform: 'hsl(var(--code-terraform))',
+				ansible: 'hsl(var(--destructive))',
+				glass: {
+					bg: 'hsl(var(--glass-bg))',
+					border: 'hsl(var(--glass-border))'
+				},
+				code: {
+					bg: 'hsl(var(--code-bg))',
+					terraform: 'hsl(var(--code-terraform))',
+					string: 'hsl(var(--code-string))',
+					keyword: 'hsl(var(--code-keyword))',
+					comment: 'hsl(var(--code-comment))'
 				}
 			},
 			borderRadius: {
