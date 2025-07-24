@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { getDate } from "date-fns";
 import { Github, Mail, Heart, Cloud } from "lucide-react";
 
-export const Footer = () => {
+interface FooterProps {
+  onContactClick?: () => void;
+}
+
+export const Footer = ({ onContactClick }: FooterProps) => {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border bg-background/80 backdrop-blur-sm">
@@ -43,7 +47,11 @@ export const Footer = () => {
                 onClick={() => window.open("https://github.com/azi74", "_blank")}>
                 <Github className="w-5 h-5" />
               </Button>
-              <Button variant="glass" size="icon" className="hover:scale-105 transition-transform">
+              <Button 
+                variant="glass" 
+                size="icon" 
+                className="hover:scale-105 transition-transform"
+                onClick={onContactClick}>
                 <Mail className="w-5 h-5" />
               </Button>
             </div>

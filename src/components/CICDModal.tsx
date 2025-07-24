@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CodePreview } from "./CodePreview";
-import { GitBranch, Download, Copy, Play, TestTube, Rocket } from "lucide-react";
+import { GitBranch, Download, Copy, Play, TestTube, Rocket, Settings } from "lucide-react";
 import githubActionsLogo from "@/assets/github-actions-logo.png";
 
 interface CICDModalProps {
@@ -21,6 +22,7 @@ export const CICDModal = ({ open, onOpenChange }: CICDModalProps) => {
     triggers: ["push", "pull_request"],
     branches: ["main", "develop"],
     nodeVersion: "18",
+    packageManager: "npm",
     testCommand: "npm test",
     buildCommand: "npm run build",
     deployTarget: "none",
@@ -189,218 +191,263 @@ ${config.deployTarget !== "none" ? `
     }
   };
 
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass-modal max-w-6xl overflow-hidden">
-        <DialogHeader className="pb-6">
-          <DialogTitle className="flex items-center gap-3 text-2xl">
-            <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">
-              <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
-            </div>
-            GitHub Actions CI/CD Generator
-          </DialogTitle>
-        </DialogHeader>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full overflow-hidden">
-          {/* Configuration Form */}
-          <div className="space-y-6 overflow-y-auto pr-4">
-            <Tabs defaultValue="general" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 glass">
-                <TabsTrigger value="general">General</TabsTrigger>
-                <TabsTrigger value="triggers">Triggers</TabsTrigger>
-                <TabsTrigger value="steps">Steps</TabsTrigger>
-                <TabsTrigger value="deploy">Deploy</TabsTrigger>
-              </TabsList>
+  const Content = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full overflow-hidden">
+      {/* Configuration Form */}
+      <div className="space-y-6 overflow-y-auto pr-4">
+        <Tabs defaultValue="triggers" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 glass">
+            <TabsTrigger value="triggers">Triggers</TabsTrigger>
+            <TabsTrigger value="build">Build</TabsTrigger>
+            <TabsTrigger value="deploy">Deploy</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="triggers" className="space-y-4">
+            <div className="glass p-6 rounded-2xl space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <GitBranch className="w-5 h-5 text-primary" />
+                Workflow Triggers
+              </h3>
               
-              <TabsContent value="general" className="space-y-4">
-                <div className="glass p-6 rounded-2xl space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <Play className="w-5 h-5 text-primary" />
-                    Workflow Configuration
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="workflowName">Workflow Name</Label>
-                      <Input 
-                        id="workflowName"
-                        className="glass"
-                        value={config.workflowName}
-                        onChange={(e) => setConfig({...config, workflowName: e.target.value})}
-                        placeholder="ci-cd-pipeline"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="nodeVersion">Node.js Version</Label>
-                      <Select value={config.nodeVersion} onValueChange={(value) => setConfig({...config, nodeVersion: value})}>
-                        <SelectTrigger className="glass">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="glass-modal">
-                          <SelectItem value="16">Node.js 16</SelectItem>
-                          <SelectItem value="18">Node.js 18 (LTS)</SelectItem>
-                          <SelectItem value="20">Node.js 20</SelectItem>
-                          <SelectItem value="21">Node.js 21 (Latest)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="branches">Target Branches (comma-separated)</Label>
-                      <Input 
-                        id="branches"
-                        className="glass"
-                        value={config.branches.join(", ")}
-                        onChange={(e) => setConfig({...config, branches: e.target.value.split(",").map(b => b.trim()).filter(b => b)})}
-                        placeholder="main, develop"
-                      />
-                    </div>
-                  </div>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="workflowName">Workflow Name</Label>
+                  <Input 
+                    id="workflowName"
+                    className="glass"
+                    value={config.workflowName}
+                    onChange={(e) => setConfig({...config, workflowName: e.target.value})}
+                    placeholder="CI/CD Pipeline"
+                  />
                 </div>
-              </TabsContent>
-              
-              <TabsContent value="triggers" className="space-y-4">
-                <div className="glass p-6 rounded-2xl space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <GitBranch className="w-5 h-5 text-primary" />
-                    Workflow Triggers
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    {["push", "pull_request", "schedule", "workflow_dispatch"].map((trigger) => (
-                      <div key={trigger} className="flex items-center space-x-2">
+
+                <div className="space-y-2">
+                  <Label>Trigger Events</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { key: "push", label: "Push to main" },
+                      { key: "pullRequest", label: "Pull Request" },
+                      { key: "schedule", label: "Scheduled" },
+                      { key: "manual", label: "Manual Dispatch" }
+                    ].map((trigger) => (
+                      <div key={trigger.key} className="flex items-center space-x-2">
                         <Checkbox 
-                          id={trigger}
-                          checked={config.triggers.includes(trigger)}
-                          onCheckedChange={(checked) => handleTriggerChange(trigger, !!checked)}
+                          id={trigger.key}
+                          checked={config.triggers.includes(trigger.key)}
+                          onCheckedChange={(checked) => handleTriggerChange(trigger.key, !!checked)}
                         />
-                        <Label htmlFor={trigger} className="capitalize">
-                          {trigger.replace("_", " ")}
-                        </Label>
+                        <Label htmlFor={trigger.key}>{trigger.label}</Label>
                       </div>
                     ))}
                   </div>
                 </div>
-              </TabsContent>
-              
-              <TabsContent value="steps" className="space-y-4">
-                <div className="glass p-6 rounded-2xl space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <TestTube className="w-5 h-5 text-primary" />
-                    Build Steps
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="runLinting"
-                        checked={config.runLinting}
-                        onCheckedChange={(checked) => setConfig({...config, runLinting: !!checked})}
-                      />
-                      <Label htmlFor="runLinting">Run linting checks</Label>
-                    </div>
 
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="runTests"
-                        checked={config.runTests}
-                        onCheckedChange={(checked) => setConfig({...config, runTests: !!checked})}
-                      />
-                      <Label htmlFor="runTests">Run test suite</Label>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="enableCaching"
-                        checked={config.enableCaching}
-                        onCheckedChange={(checked) => setConfig({...config, enableCaching: !!checked})}
-                      />
-                      <Label htmlFor="enableCaching">Enable dependency caching</Label>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <Checkbox 
-                        id="enableSecurity"
-                        checked={config.enableSecurity}
-                        onCheckedChange={(checked) => setConfig({...config, enableSecurity: !!checked})}
-                      />
-                      <Label htmlFor="enableSecurity">Security scanning</Label>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="testCommand">Test Command</Label>
-                      <Input 
-                        id="testCommand"
-                        className="glass"
-                        value={config.testCommand}
-                        onChange={(e) => setConfig({...config, testCommand: e.target.value})}
-                        placeholder="npm test"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="buildCommand">Build Command</Label>
-                      <Input 
-                        id="buildCommand"
-                        className="glass"
-                        value={config.buildCommand}
-                        onChange={(e) => setConfig({...config, buildCommand: e.target.value})}
-                        placeholder="npm run build"
-                      />
-                    </div>
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="branches">Target Branches (comma-separated)</Label>
+                  <Input 
+                    id="branches"
+                    className="glass"
+                    value={config.branches.join(", ")}
+                    onChange={(e) => setConfig({...config, branches: e.target.value.split(",").map(b => b.trim()).filter(b => b)})}
+                    placeholder="main, develop"
+                  />
                 </div>
-              </TabsContent>
-              
-              <TabsContent value="deploy" className="space-y-4">
-                <div className="glass p-6 rounded-2xl space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2">
-                    <Rocket className="w-5 h-5 text-primary" />
-                    Deployment Configuration
-                  </h3>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="deployTarget">Deployment Target</Label>
-                    <Select value={config.deployTarget} onValueChange={(value) => setConfig({...config, deployTarget: value})}>
-                      <SelectTrigger className="glass">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="glass-modal">
-                        <SelectItem value="none">No deployment</SelectItem>
-                        <SelectItem value="vercel">Vercel</SelectItem>
-                        <SelectItem value="netlify">Netlify</SelectItem>
-                        <SelectItem value="aws">AWS S3 + CloudFront</SelectItem>
-                        <SelectItem value="custom">Custom</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            <div className="flex gap-3 pt-6 border-t border-border">
-              <Button variant="hero" onClick={handleDownload} className="flex-1">
-                <Download className="w-4 h-4 mr-2" />
-                Download .yml
-              </Button>
-              <Button variant="outline" onClick={handleCopy}>
-                <Copy className="w-4 h-4 mr-2" />
-                Copy
-              </Button>
+              </div>
             </div>
-          </div>
+          </TabsContent>
+          
+          <TabsContent value="build" className="space-y-4">
+            <div className="glass p-6 rounded-2xl space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Settings className="w-5 h-5 text-primary" />
+                Build Configuration
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="nodeVersion">Node.js Version</Label>
+                  <Select value={config.nodeVersion} onValueChange={(value) => setConfig({...config, nodeVersion: value})}>
+                    <SelectTrigger className="glass">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-modal">
+                      <SelectItem value="16">Node.js 16</SelectItem>
+                      <SelectItem value="18">Node.js 18</SelectItem>
+                      <SelectItem value="20">Node.js 20</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-          {/* Code Preview */}
-          <div className="flex flex-col h-full">
-            <CodePreview 
-              code={generateGitHubActionsYAML()}
-              language="yaml"
-              title="Generated GitHub Actions Workflow"
-            />
-          </div>
+                <div className="space-y-2">
+                  <Label htmlFor="packageManager">Package Manager</Label>
+                  <Select value={config.packageManager} onValueChange={(value) => setConfig({...config, packageManager: value})}>
+                    <SelectTrigger className="glass">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-modal">
+                      <SelectItem value="npm">npm</SelectItem>
+                      <SelectItem value="yarn">yarn</SelectItem>
+                      <SelectItem value="pnpm">pnpm</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="testCommand">Test Command</Label>
+                  <Input 
+                    id="testCommand"
+                    className="glass"
+                    value={config.testCommand}
+                    onChange={(e) => setConfig({...config, testCommand: e.target.value})}
+                    placeholder="npm test"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="buildCommand">Build Command</Label>
+                  <Input 
+                    id="buildCommand"
+                    className="glass"
+                    value={config.buildCommand}
+                    onChange={(e) => setConfig({...config, buildCommand: e.target.value})}
+                    placeholder="npm run build"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Build Steps</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { key: "runLinting", label: "ESLint/Prettier" },
+                    { key: "runTests", label: "Unit Tests" },
+                    { key: "enableCaching", label: "Dependency Caching" },
+                    { key: "enableSecurity", label: "Security Scanning" }
+                  ].map((step) => (
+                    <div key={step.key} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={step.key}
+                        checked={config[step.key as keyof typeof config] as boolean}
+                        onCheckedChange={(checked) => setConfig({...config, [step.key]: !!checked})}
+                      />
+                      <Label htmlFor={step.key}>{step.label}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="deploy" className="space-y-4">
+            <div className="glass p-6 rounded-2xl space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Rocket className="w-5 h-5 text-primary" />
+                Deployment Configuration
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="deployTarget">Deployment Target</Label>
+                  <Select value={config.deployTarget} onValueChange={(value) => setConfig({...config, deployTarget: value})}>
+                    <SelectTrigger className="glass">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-modal">
+                      <SelectItem value="none">No deployment</SelectItem>
+                      <SelectItem value="vercel">Vercel</SelectItem>
+                      <SelectItem value="netlify">Netlify</SelectItem>
+                      <SelectItem value="aws">AWS S3 + CloudFront</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {config.deployTarget === "aws" && (
+                  <div className="space-y-2 p-4 glass rounded-xl">
+                    <Label className="text-sm font-medium">AWS Configuration</Label>
+                    <p className="text-xs text-muted-foreground">
+                      Make sure to set these secrets in your repository:
+                      <br />• AWS_ACCESS_KEY_ID
+                      <br />• AWS_SECRET_ACCESS_KEY
+                      <br />• S3_BUCKET_NAME
+                      <br />• CLOUDFRONT_DISTRIBUTION_ID
+                    </p>
+                  </div>
+                )}
+
+                {(config.deployTarget === "vercel" || config.deployTarget === "netlify") && (
+                  <div className="space-y-2 p-4 glass rounded-xl">
+                    <Label className="text-sm font-medium">
+                      {config.deployTarget === "vercel" ? "Vercel" : "Netlify"} Configuration
+                    </Label>
+                    <p className="text-xs text-muted-foreground">
+                      Make sure to set these secrets in your repository:
+                      <br />• {config.deployTarget === "vercel" ? "VERCEL_TOKEN" : "NETLIFY_AUTH_TOKEN"}
+                      <br />• {config.deployTarget === "vercel" ? "VERCEL_ORG_ID" : "NETLIFY_SITE_ID"}
+                      {config.deployTarget === "vercel" && <><br />• VERCEL_PROJECT_ID</>}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        <div className="flex gap-3 pt-6 border-t border-border">
+          <Button variant="hero" onClick={handleDownload} className="hover:bg-cyan-900 flex-1">
+            <Download className="w-4 h-4 mr-2" />
+            Download .yml
+          </Button>
+          <Button variant="outline" onClick={handleCopy}>
+            <Copy className="w-4 h-4 mr-2" />
+            Copy
+          </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+
+      {/* Code Preview */}
+      <div className="flex flex-col h-full">
+        <CodePreview 
+          code={generateGitHubActionsYAML()}
+          language="yaml"
+          title="Generated GitHub Actions Workflow"
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Modal */}
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="glass-modal max-w-6xl overflow-hidden hidden md:block">
+          <DialogHeader className="pb-6">
+            <DialogTitle className="flex items-center gap-3 text-2xl">
+              <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">
+                <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
+              </div>
+              GitHub Actions CI/CD Generator
+            </DialogTitle>
+          </DialogHeader>
+          <Content />
+        </DialogContent>
+      </Dialog>
+
+      {/* Mobile Drawer */}
+      <Drawer open={open} onOpenChange={onOpenChange}>
+        <DrawerContent className="glass-modal md:hidden h-[90vh]">
+          <DrawerHeader className="pb-1">
+            <DrawerTitle className="flex items-center gap-3 text-xl justify-center">
+              <div className="w-8 h-8 bg-background rounded-xl flex items-center justify-center p-1.5">
+                <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
+              </div>
+              CI/CD Generator
+            </DrawerTitle>
+          </DrawerHeader>
+          <div className="px-4 pb-4 overflow-hidden flex-1">
+            <Content />
+          </div>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
