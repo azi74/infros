@@ -23,7 +23,7 @@ export const CICDModal = ({ open, onOpenChange }: CICDModalProps) => {
     nodeVersion: "18",
     testCommand: "npm test",
     buildCommand: "npm run build",
-    deployTarget: "vercel",
+    deployTarget: "none",
     runLinting: true,
     runTests: true,
     enableCaching: true,
@@ -121,7 +121,7 @@ jobs:
         with:
           name: build-files
           path: dist/
-
+${config.deployTarget !== "none" ? `
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -163,7 +163,7 @@ jobs:
         run: aws s3 sync dist/ s3://\${{ secrets.S3_BUCKET_NAME }} --delete
         
       - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id \${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"` : ''}`;
+        run: aws cloudfront create-invalidation --distribution-id \${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"` : ''}` : ''}`;
   };
 
   const handleDownload = () => {
@@ -195,7 +195,7 @@ jobs:
         <DialogHeader className="pb-6">
           <DialogTitle className="flex items-center gap-3 text-2xl">
             <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">
-              <img src="./git.png" alt="GitHub Actions" className="w-full h-full object-contain" />
+              <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
             </div>
             GitHub Actions CI/CD Generator
           </DialogTitle>
@@ -367,6 +367,7 @@ jobs:
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="glass-modal">
+                        <SelectItem value="none">No deployment</SelectItem>
                         <SelectItem value="vercel">Vercel</SelectItem>
                         <SelectItem value="netlify">Netlify</SelectItem>
                         <SelectItem value="aws">AWS S3 + CloudFront</SelectItem>
