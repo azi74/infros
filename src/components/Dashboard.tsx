@@ -58,7 +58,7 @@ export const Dashboard = () => {
           </p>
 
           {/* Action Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Terraform Card */}
             <div className="glass-modal p-6 md:p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setTerraformOpen(true)}>
