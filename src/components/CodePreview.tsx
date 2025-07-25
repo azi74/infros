@@ -4,7 +4,7 @@ import { Copy, Check, Eye, Code } from "lucide-react";
 
 interface CodePreviewProps {
   code: string;
-  language: "terraform" | "yaml";
+  language: "terraform" | "yaml" | "dockerfile";
   title?: string;
 }
 
@@ -31,6 +31,12 @@ export const CodePreview = ({ code, language, title = "Generated Code" }: CodePr
         .replace(/:\s*([^"\s#][^\n#]*?)(\s*#|$)/gm, ': <span class="syntax-string">$1</span>$2')
         .replace(/(#.*$)/gm, '<span class="syntax-comment">$1</span>')
         .replace(/^(\s*---\s*$)/gm, '<span class="syntax-comment">$1</span>');
+    } else if (lang === "dockerfile") {
+      return code
+        .replace(/^(FROM|RUN|COPY|ADD|WORKDIR|EXPOSE|CMD|ENTRYPOINT|ENV|ARG|LABEL|VOLUME|USER|HEALTHCHECK|SHELL|ONBUILD)\s/gm, '<span class="syntax-terraform font-semibold">$1</span> ')
+        .replace(/=\s*"([^"]+)"/g, '= <span class="syntax-string">"$1"</span>')
+        .replace(/:\s*([^"\s#][^\n#]*?)(\s*#|$)/gm, ': <span class="syntax-string">$1</span>$2')
+        .replace(/(#.*$)/gm, '<span class="syntax-comment">$1</span>');
     }
     return code;
   };
@@ -45,6 +51,8 @@ export const CodePreview = ({ code, language, title = "Generated Code" }: CodePr
           <div className={`px-2 py-1 rounded-lg text-xs font-medium ${
             language === "terraform" 
               ? "bg-terraform/20 text-terraform" 
+              : language === "dockerfile"
+              ? "bg-primary/20 text-primary"
               : "bg-destructive/20 text-destructive"
           }`}>
             {language.toUpperCase()}

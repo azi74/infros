@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { TerraformModal } from "./TerraformModal";
 import { AnsibleModal } from "./AnsibleModal";
 import { CICDModal } from "./CICDModal";
+import { DockerModal } from "./DockerModal";
 import { Footer } from "./Footer";
 import { ContactModal } from "./ContactModal";
-import { Code, Server, Cloud, Settings, Download, Github, GitBranch } from "lucide-react";
+import { Code, Server, Cloud, Settings, Download, Github, GitBranch, Container } from "lucide-react";
 import terraformLogoDark from "@/assets/terraform-logo-dark.png";
 import ansibleLogoDark from "@/assets/ansible-logo-dark.png";
 import githubActionsLogo from "@/assets/github-actions-logo.png";
@@ -14,6 +15,7 @@ export const Dashboard = () => {
   const [terraformOpen, setTerraformOpen] = useState(false);
   const [ansibleOpen, setAnsibleOpen] = useState(false);
   const [cicdOpen, setCicdOpen] = useState(false);
+  const [dockerOpen, setDockerOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
@@ -56,7 +58,7 @@ export const Dashboard = () => {
           </p>
 
           {/* Action Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Terraform Card */}
             <div className="glass-modal p-6 md:p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
                  onClick={() => setTerraformOpen(true)}>
@@ -101,6 +103,21 @@ export const Dashboard = () => {
                 Setup CI/CD
               </Button>
             </div>
+
+            {/* Docker Card */}
+            <div className="glass-modal p-6 md:p-8 rounded-3xl group hover:scale-105 transition-smooth cursor-pointer animate-fade-in"
+                 onClick={() => setDockerOpen(true)}>
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-muted rounded-2xl flex items-center justify-center mb-4 md:mb-6 mx-auto p-2 md:p-3">
+                <img src="./docker.png" alt="Docker" className="w-full h-full object-contain" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Dockerfile</h3>
+              <p className="text-muted-foreground mb-4 md:mb-6 text-sm md:text-base">
+                Generate Docker configurations for containerizing your applications.
+              </p>
+              <Button variant="outline" size="lg" className="hover:bg-blue-900 hover:text-white hover:border-blue-600 w-full">
+                Create Container
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -117,7 +134,8 @@ export const Dashboard = () => {
               { icon: Download, title: "Export Ready", desc: "Production configs" },
               { icon: Github, title: "Git Integration", desc: "Push to repos" },
               { icon: Settings, title: "Live Preview", desc: "Real-time syntax" },
-              { icon: GitBranch, title: "CI/CD Ready", desc: "Automated pipelines" }
+              { icon: GitBranch, title: "CI/CD Ready", desc: "Automated pipelines" },
+              { icon: Container, title: "Containerization", desc: "Docker support" }
             ].map((feature, i) => (
               <div key={i} className="glass p-4 rounded-2xl flex items-center gap-4">
                 <div className="flex-shrink-0">
@@ -132,13 +150,14 @@ export const Dashboard = () => {
           </div>
 
           {/* Desktop: Grid Layout */}
-          <div className="hidden md:grid md:grid-cols-5 gap-6">
+          <div className="hidden md:grid md:grid-cols-6 gap-6">
             {[
               { icon: Code, title: "Visual Forms", desc: "No scripting needed" },
               { icon: Download, title: "Export Ready", desc: "Production configs" },
               { icon: Github, title: "Git Integration", desc: "Push to repos" },
               { icon: Settings, title: "Live Preview", desc: "Real-time syntax" },
-              { icon: GitBranch, title: "CI/CD Ready", desc: "Automated pipelines" }
+              { icon: GitBranch, title: "CI/CD Ready", desc: "Automated pipelines" },
+              { icon: Container, title: "Containerization", desc: "Docker support" }
             ].map((feature, i) => (
               <div key={i} className="glass p-6 rounded-2xl text-center">
                 <feature.icon className="w-8 h-8 text-primary mx-auto mb-4" />
@@ -157,6 +176,7 @@ export const Dashboard = () => {
       <TerraformModal open={terraformOpen} onOpenChange={setTerraformOpen} />
       <AnsibleModal open={ansibleOpen} onOpenChange={setAnsibleOpen} />
       <CICDModal open={cicdOpen} onOpenChange={setCicdOpen} />
+      <DockerModal open={dockerOpen} onOpenChange={setDockerOpen} />
       <ContactModal open={contactOpen} onOpenChange={setContactOpen} />
     </div>
   );
