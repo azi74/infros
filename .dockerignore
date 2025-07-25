@@ -1,0 +1,29 @@
+# node modules
+node_modules
+**/node_modules
+
+# local env files
+.env
+.env.*
+
+# build artifacts
+dist
+build
+
+# Vercel / Netlify
+.vercel
+.netlify
+
+# Git + logs
+.git
+.gitignore
+Dockerfile
+.dockerignore
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# IDEs
+.vscode
+.idea
+*.swp
