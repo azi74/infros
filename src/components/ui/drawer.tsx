@@ -28,6 +28,7 @@ const DrawerOverlay = React.forwardRef<
   <DrawerPrimitive.Overlay
     ref={ref}
     className={cn("fixed inset-0 z-50", className)}
+    onClick={(e) => e.preventDefault()}
     {...props}
   />
 ))
