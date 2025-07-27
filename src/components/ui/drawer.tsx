@@ -46,7 +46,8 @@ const DrawerContent = React.forwardRef<
         "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-3xl border bg-background max-h-[85vh] overflow-hidden",
         className
       )}
-      onClick={(e) => e.stopPropagation()}
+      onPointerDownOutside={(e) => e.preventDefault()}
+      onInteractOutside={(e) => e.preventDefault()}
       {...props}
     >
       <div className="mx-auto mt-6 h-1.5 w-12 rounded-full bg-muted" />
