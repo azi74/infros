@@ -9,7 +9,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Dark theme base colors */
-    --background: 225 25% 8%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
 
     /* Glass morphism cards */
@@ -137,7 +137,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, hsl(225 25% 8%), hsl(225 25% 6%));
+    background: hsl(0 0% 0%);
     min-height: 100vh;
   }
 }
