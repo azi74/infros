@@ -152,7 +152,7 @@ All colors MUST be HSL.
   }
 
   .glass-modal {
-    background: hsl(var(--glass-bg));
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: var(--backdrop-blur);
     border: 1px solid hsl(var(--glass-border));
     box-shadow: var(--shadow-modal);
