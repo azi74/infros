@@ -18,10 +18,7 @@ const DialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
-    className={cn(
-      "fixed inset-0 z-50 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    )}
+    className={cn("fixed inset-0 z-50", className)}
     style={{ backgroundColor: 'transparent' }}
     {...props}
   />
@@ -41,11 +38,7 @@ const DialogContent = React.forwardRef<
         className
       )}
       onInteractOutside={(e) => {
-        // Prevent closing when clicking inside the modal content
-        const clickedInside = (e.target as Element).closest('[data-radix-dialog-content]');
-        if (clickedInside) {
-          e.preventDefault();
-        }
+        e.preventDefault();
       }}
       {...props}
     >
