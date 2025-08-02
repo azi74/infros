@@ -92,7 +92,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
   return (
     <>
       {/* Desktop Modal */}
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog open={open} onOpenChange={() => {}}>
         <DialogContent className="glass-modal max-w-md hidden md:block">
           <DialogHeader className="pb-6">
             <DialogTitle className="flex items-center gap-3 text-2xl">
@@ -107,7 +107,7 @@ export const ContactModal = ({ open, onOpenChange }: ContactModalProps) => {
       </Dialog>
 
       {/* Mobile Drawer */}
-      <Drawer open={open} onOpenChange={onOpenChange}>
+      <Drawer open={open} onOpenChange={() => {}}>
         <DrawerContent className="glass-modal md:hidden">
           <DrawerHeader className="pb-6">
             <DrawerTitle className="flex items-center gap-3 text-2xl justify-center">
