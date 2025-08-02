@@ -272,7 +272,7 @@ ${config.users.map(user => `      - ${user}`).join('\n')}
   return (
     <>
       {/* Desktop Modal */}
-      <Dialog open={open} onOpenChange={() => {}}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="glass-modal max-w-6xl overflow-hidden hidden md:block">
           <DialogHeader className="pb-6">
             <DialogTitle className="flex items-center gap-3 text-2xl">
@@ -287,7 +287,7 @@ ${config.users.map(user => `      - ${user}`).join('\n')}
       </Dialog>
 
       {/* Mobile Drawer */}
-      <Drawer open={open} onOpenChange={() => {}}>
+      <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerContent className="glass-modal md:hidden h-[90vh]">
           <DrawerHeader className="pb-1">
             <DrawerTitle className="flex items-center gap-3 text-xl justify-center">

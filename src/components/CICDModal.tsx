@@ -418,14 +418,14 @@ ${config.deployTarget !== "none" ? `
   return (
     <>
       {/* Desktop Modal */}
-      <Dialog open={open} onOpenChange={() => {}}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="glass-modal max-w-6xl overflow-hidden hidden md:block">
           <DialogHeader className="pb-6">
             <DialogTitle className="flex items-center gap-3 text-2xl">
               <div className="w-10 h-10 bg-background rounded-xl flex items-center justify-center p-2">
                 <img src={githubActionsLogo} alt="GitHub Actions" className="w-full h-full object-contain" />
               </div>
-              GitHub Actions CI/CD Generator
+              CI/CD Pipeline Generator
             </DialogTitle>
           </DialogHeader>
           <Content />
@@ -433,7 +433,7 @@ ${config.deployTarget !== "none" ? `
       </Dialog>
 
       {/* Mobile Drawer */}
-      <Drawer open={open} onOpenChange={() => {}}>
+      <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerContent className="glass-modal md:hidden h-[90vh]">
           <DrawerHeader className="pb-1">
             <DrawerTitle className="flex items-center gap-3 text-xl justify-center">

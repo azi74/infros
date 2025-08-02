@@ -259,12 +259,12 @@ services:
   return (
     <>
       {/* Desktop Dialog */}
-      <Dialog open={open} onOpenChange={() => {}}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="hidden md:block max-w-4xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Container className="w-5 h-5" />
-              Docker Configuration
+              <img src="/docker.png" alt="Docker" className="w-6 h-6" />
+              Docker Configuration Generator
             </DialogTitle>
           </DialogHeader>
           <Content />
@@ -272,7 +272,7 @@ services:
       </Dialog>
 
       {/* Mobile Drawer */}
-      <Drawer open={open} onOpenChange={() => {}}>
+      <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerContent className="md:hidden">
           <DrawerHeader>
             <DrawerTitle className="flex items-center gap-2 justify-center">
